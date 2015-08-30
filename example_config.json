@@ -1,0 +1,23 @@
+{
+    "providers": [
+        {
+            "klass": "photonemitter.providers.calc.CalcProvider",
+            "match": "!c (.*)"
+        },
+        {
+            "klass": "photonemitter.providers.opensearch.OpenSearchProvider",
+            "match": "!g (.*)",
+            "suggestions_template": "https://www.google.com/complete/search?client=firefox&q={search_term}",
+            "search_template": "https://www.google.com/search?q={search_term}"
+        },
+        {
+            "klass": "photonemitter.providers.exec.ExecProvider",
+            "match": "!e (.*)",
+            "terminal_cmd": "urxvt -e '{cmd}'"
+        },
+        {
+            "klass": "photonemitter.providers.apps.AppsProvider",
+            "match": "(.*)"
+        }
+    ]
+}
