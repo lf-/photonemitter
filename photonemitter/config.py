@@ -5,6 +5,10 @@ import sys
 import json
 
 
+class ConfigError(Exception):
+    pass
+
+
 class Configuration:
     """
     A configuration class that stores options as properties.
@@ -37,9 +41,7 @@ class Configuration:
         try:
             with open(path) as h:
                 self._config.update(json.load(h))
-        except:
-            print('CRITICAL: error while loading config file {}'.format(path),
-                  file=sys.stderr)
-            raise
+        except ('TypeError', 'ValueError'):
+            raise ConfigError('Bad JSON document!') from e
         for var, val in self._config.items():
             setattr(self, var, val)
