@@ -9,7 +9,7 @@ simple to simulate things like DuckDuckGo's bangs.
 How to use it
 -------------
 
-..code:: bash
+.. code:: bash
 
         sudo pip install photonemitter
 
@@ -17,4 +17,4 @@ Then, change your lighthouserc to use /usr/bin/photonemitter as cmd.
 
 See the `wiki`_ for more details on configuring photonemitter.
 
-.. _wiki: wiki
+.. _wiki: //github.com/lf-/photonemitter/wiki
