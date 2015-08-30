@@ -17,7 +17,8 @@ class CalcProvider(provider.Provider):
         """Evaluate the provided bc expression"""
         return subprocess.check_output(
             ['bc'],
-            input='{}\n'.format(expr).encode()
+            input='{}\n'.format(expr).encode(),
+            stderr=subprocess.STDOUT
         )[:-1].decode('utf-8')
 
     def query(self, q: str) -> list:
