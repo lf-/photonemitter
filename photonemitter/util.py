@@ -1,4 +1,3 @@
-from . import config
 import os
 import xdg.DesktopEntry
 import xdg.BaseDirectory
@@ -21,6 +20,7 @@ desktop_entries = []
 for df in desktop_files:
     desktop_file = xdg.DesktopEntry.DesktopEntry(df)
     desktop_entries.append(desktop_file)
+
 
 def get_module_attr(attr):
     """

@@ -4,9 +4,9 @@ from . import output
 
 
 def main():
-    config = photonemitter.config.Configuration()
+    cfg = config.Configuration()
     ps = photonemitter.ProviderSet()
-    for prov in config.providers:
+    for prov in cfg.providers:
         ps.add(**prov)
 
     while True:
@@ -15,7 +15,7 @@ def main():
         if results is None:
             print()
         else:
-            photonemitter.output.send(results)
+            output.send(results)
 
 
 main()
