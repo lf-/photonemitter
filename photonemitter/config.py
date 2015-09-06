@@ -41,7 +41,7 @@ class Configuration:
         try:
             with open(path) as h:
                 self._config.update(json.load(h))
-        except ('TypeError', 'ValueError'):
+        except (TypeError, ValueError):
             raise ConfigError('Bad JSON document!') from e
         for var, val in self._config.items():
             setattr(self, var, val)
