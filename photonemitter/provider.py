@@ -30,7 +30,7 @@ class ProviderSet:
     """
 
     def __init__(self):
-        self._providers = []
+        self.providers = []
 
     def add(self, match: str, klass: str, index: int = None,
             regex_group: int = 0, **options):
@@ -61,9 +61,9 @@ class ProviderSet:
         prov.match = match
         prov.regex_group = regex_group
         if index is None:
-            self._providers.append(prov)
+            self.providers.append(prov)
         else:
-            self._providers.insert(index, prov)
+            self.providers.insert(index, prov)
 
     def query(self, q: str) -> list:
         """
@@ -86,7 +86,7 @@ class ProviderSet:
         """
 
         import re
-        for p in self._providers:
+        for p in self.providers:
             match = re.match(p.match, q)
             if match:
                 groups = match.groups()
@@ -96,16 +96,6 @@ class ProviderSet:
                 return p.query(groups[p.regex_group])
         else:
             return None
-
-    def get_providers(self) -> list:
-        """
-        Gets a list of providers in preferential order
-
-        Returns:
-        A list of Providers
-        """
-
-        return self._providers
 
 
 if __name__ == '__main__':
