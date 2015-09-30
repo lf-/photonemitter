@@ -1,5 +1,5 @@
 import os
-import xdg.DesktopEntry
+from .xdg import DesktopEntry
 import xdg.BaseDirectory
 import xdg.IconTheme
 import glob
@@ -18,7 +18,7 @@ for sp in _desktop_file_search_paths:
 # DesktopEntry classes for all desktop files
 desktop_entries = []
 for df in desktop_files:
-    desktop_file = xdg.DesktopEntry.DesktopEntry(df)
+    desktop_file = DesktopEntry(df)
     desktop_entries.append(desktop_file)
 
 

@@ -1,3 +1,7 @@
+from .xdg import DesktopEntry
+from .util import get_icon_file
+
+
 class Result:
     """
     A single search result.
@@ -27,7 +31,31 @@ class Result:
         self.cmd = cmd
         self.img = img
 
-    def get_output(self):
+    @classmethod
+    def from_desktop_entry(cls, desktop_entry: DesktopEntry,
+                           icon_theme: str = None):
+        """
+        Create a Result from a photonemitter.xdg.DesktopEntry
+
+        Positional parameters:
+        desktop_entry -- a DesktopEntry
+
+        Keyword arguments:
+        icon_theme -- icon theme to use to get the icon
+
+        Returns: a Result object
+        """
+        # ugly, alternative solutions welcome!
+        if desktop_entry.path:
+            cmd = 'cd {}; {}'.format(desktop_entry.path,
+                                     desktop_entry.stripped_exec)
+        else:
+            cmd = desktop_entry.stripped_exec
+        return Result(desktop_entry.name, cmd,
+                      img=get_icon_file(desktop_entry.icon, icon_theme))
+
+    @property
+    def output(self):
         """
         Get the output representation for a Result.
 
@@ -56,7 +84,7 @@ def send(results):
     >>> send([Result('A', 'a'), Result('B', 'b')])
     {A |a }{B |b }
     """
-    outputs = [x.get_output() for x in results]
+    outputs = [x.output for x in results]
     print(''.join(outputs))
 
 if __name__ == '__main__':

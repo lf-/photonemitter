@@ -1,6 +1,6 @@
 from .. import util
 from .. import provider
-from .. import output
+from ..output import Result
 import fuzzywuzzy.process
 import fuzzywuzzy.fuzz
 
@@ -35,14 +35,14 @@ class AppsProvider(provider.Provider):
         """
         results = []
         for res in self._search(q):
-            results.append(output.Result(res.getName(), res.getExec(),
-                                         util.get_icon_file(res.getIcon(),
-                                         icon_theme=self.icon_theme)))
+            results.append(Result.from_desktop_entry(
+                               res,
+                               icon_theme=self.icon_theme))
         return results
 
     def _search(self, q: str,
                 desktop_entries=util.desktop_entries) -> list:
-        denames = {e.getName(): e for e in desktop_entries}
+        denames = {e.name: e for e in desktop_entries}
         results = fuzzywuzzy.process.extractBests(
                 q,
                 list(denames),
