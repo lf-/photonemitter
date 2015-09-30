@@ -1,6 +1,9 @@
 import abc
 from . import util
-from . import output
+
+
+class ProviderError(Exception):
+    pass
 
 
 class Provider(metaclass=abc.ABCMeta):
@@ -81,8 +84,10 @@ class ProviderSet:
         [Result('This was a triumph', '', img=None), ...]
 
         Returns:
-        A list of Results, None if there are no matching providers, or an
-        error message as a Result
+        A list of Results, None if there are no matching providers
+
+        Raises:
+        ProviderError if the regex is not valid
         """
 
         import re
@@ -91,8 +96,8 @@ class ProviderSet:
             if match:
                 groups = match.groups()
                 if len(groups) < 1:
-                    return [output.Result('Bad regex! Result must be in a '
-                                          'group!', '')]
+                    raise ProviderError('Bad regex! Result must be in a '
+                                        'group!')
                 return p.query(groups[p.regex_group])
         else:
             return None
