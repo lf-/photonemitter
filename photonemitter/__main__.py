@@ -11,11 +11,15 @@ def main():
 
     while True:
         line = input()
-        results = ps.query(line)
-        if results is None:
-            print()
-        else:
-            output.send(results)
+        try:
+            results = ps.query(line)
+            if results is None:
+                print()
+            else:
+                output.send(results)
+        except Exception as exc:
+            output.send([output.Result('{e.__class__.__name__}: '
+                                       '{e!s}'.format(e=exc), '')])
 
 
 main()
